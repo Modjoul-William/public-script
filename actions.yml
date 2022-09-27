@@ -1,0 +1,36 @@
+name: run script.py
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: checkout repo content
+        uses: actions/checkout@v2 # checkout the repository content to github runner
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9' # install the python version needed
+          
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          
+      - name: execute py script # run script.py
+        env:
+          PASSWORD: ${{ secrets.PASSWORD }}
+          USERNAME_SMTP: ${{ secrets.USERNAME_SMTP }}
+          URL_DEVICE_STATUS: ${{ secrets.URL_DEVICE_STATUS }}
+          URL_OBTAIN_LOGIN_TOKEN: ${{ secrets.URL_OBTAIN_LOGIN_TOKEN }}
+          AWS_ACCESS_KEY_VAR: ${{ secrets.AWS_ACCESS_KEY_VAR }}
+          AWS_SECRET_ACCESS_CODE: ${{ secrets.AWS_SECRET_ACCESS_CODE }}
+          AWS_REGION_VAR: ${{ secrets.AWS_REGION_VAR }}
+          BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
+
+        run: python script.py
+          
