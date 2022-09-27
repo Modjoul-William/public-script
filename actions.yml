@@ -1,6 +1,8 @@
 name: run script.py
 
 on:
+  schedule:
+    - cron: '*/30 * * * *' # Every 30 minutes
   workflow_dispatch:
 
 jobs:
@@ -23,14 +25,9 @@ jobs:
           
       - name: execute py script # run script.py
         env:
-          PASSWORD: ${{ secrets.PASSWORD }}
-          USERNAME_SMTP: ${{ secrets.USERNAME_SMTP }}
-          URL_DEVICE_STATUS: ${{ secrets.URL_DEVICE_STATUS }}
-          URL_OBTAIN_LOGIN_TOKEN: ${{ secrets.URL_OBTAIN_LOGIN_TOKEN }}
-          AWS_ACCESS_KEY_VAR: ${{ secrets.AWS_ACCESS_KEY_VAR }}
-          AWS_SECRET_ACCESS_CODE: ${{ secrets.AWS_SECRET_ACCESS_CODE }}
-          AWS_REGION_VAR: ${{ secrets.AWS_REGION_VAR }}
-          BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
+#         Put environment variables here
+#           Example: PASSWORD: ${{ secrets.PASSWORD }}
+          
 
         run: python script.py
           
